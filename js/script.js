@@ -10,6 +10,8 @@ project 1 - A Random Quote Generator
 /*** 
  * `quotes` array 
 ***/
+
+// My array of quotes
 const quotes = [
   {
     "quote": "Don't have a cow man",
@@ -55,6 +57,7 @@ const quotes = [
  * `getRandomQuote` function
 ***/
 
+//the quote object that is populated dynamically to be shown on the front end.
 let randomQuote = [ {
     "quote": "",
     "source": "",
@@ -64,7 +67,7 @@ let randomQuote = [ {
 ];
 let randomNumber;
   
-
+// the function that fulls my randomQuote object with random quote data
 function getRandomQuote() {
   getRandomNumber();
   randomQuote['quote'] = quotes[randomNumber].quote
@@ -73,6 +76,7 @@ function getRandomQuote() {
   randomQuote['year'] = quotes[randomNumber].year
 }
 
+// I felt the need to make sure that a new quote displayed every time the user clicked, so I made an extra function to achieve that
 function getRandomNumber() {
   let newNumber = Math.floor(Math.random() * quotes.length);
   if (randomNumber != newNumber) {
@@ -87,6 +91,7 @@ function getRandomNumber() {
  * `printQuote` function
 ***/
 
+// the function that takes my now populated random quote object and puts it on the screen.
 function printQuote() {
   getRandomQuote();
   const quote = document.querySelector('#quote-box > .quote');
@@ -95,10 +100,6 @@ function printQuote() {
   quote.innerHTML = randomQuote['quote'];
   source.innerHTML = randomQuote['source'];
 
-  // const citation = document.querySelector('#quote-box .citation');
-  // const year = document.querySelector('#quote-box .year');
-  // // citation.innerHTML = randomQuote['citation'];
-  // // year.innerHTML = randomQuote['year'];
   if(randomQuote['citation']) {
     source.innerHTML += "<span class='citation'>" + randomQuote['citation'] + "</span>";
   } 
