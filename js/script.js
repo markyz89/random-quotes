@@ -91,12 +91,16 @@ function getRandomNumber(num) {
 // the function that takes my now random quote object and puts it on the screen.
 function printQuote() {
   var quoteObj = getRandomQuote();
+
+  // Finding the DOM elements
   const quote = document.querySelector('#quote-box > .quote');
   const source = document.querySelector('#quote-box > .source');
 
+  // updating DOM elements
   quote.innerHTML = quoteObj['quote'];
   source.innerHTML = quoteObj['source'];
 
+  // conditions to check if object has content
   if(quoteObj['citation']) {
     source.innerHTML += "<span class='citation'>" + quoteObj['citation'] + "</span>";
   } 
