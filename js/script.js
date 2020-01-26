@@ -57,31 +57,28 @@ const quotes = [
  * `getRandomQuote` function
 ***/
 
-//the quote object that is populated dynamically to be shown on the front end.
-let randomQuote = [ {
-    "quote": "",
-    "source": "",
-    "citation": "",
-    "year": "",
-  },
-];
-let randomNumber;
-  
 // the function that fulls my randomQuote object with random quote data
 function getRandomQuote() {
   getRandomNumber();
-  randomQuote['quote'] = quotes[randomNumber].quote
-  randomQuote['source'] = quotes[randomNumber].source
-  randomQuote['citation'] = quotes[randomNumber].citation
-  randomQuote['year'] = quotes[randomNumber].year
+  // check a random number is always being pulled in
+  // console.log(randomNumber);
+  return quotes[randomNumber]
 }
 
-// I felt the need to make sure that a new quote displayed every time the user clicked, so I made an extra function to achieve that
-function getRandomNumber() {
+// I felt the need to make sure that a new quote displayed every time the user clicked, 
+// so I made an extra function to achieve that
+
+// I felt randomNumber had to be a global variable in order to pass the data between functions
+// but not reset everytime the functions are called.
+let randomNumber;
+
+function getRandomNumber(num) {
   let newNumber = Math.floor(Math.random() * quotes.length);
   if (randomNumber != newNumber) {
     randomNumber = newNumber
+    return randomNumber
   } else {
+    // I don't find many reasons to use recursion. This seemed like a good opportunity.
     getRandomNumber();
   }
 }
@@ -91,21 +88,21 @@ function getRandomNumber() {
  * `printQuote` function
 ***/
 
-// the function that takes my now populated random quote object and puts it on the screen.
+// the function that takes my now random quote object and puts it on the screen.
 function printQuote() {
-  getRandomQuote();
+  var quoteObj = getRandomQuote();
   const quote = document.querySelector('#quote-box > .quote');
   const source = document.querySelector('#quote-box > .source');
 
-  quote.innerHTML = randomQuote['quote'];
-  source.innerHTML = randomQuote['source'];
+  quote.innerHTML = quoteObj['quote'];
+  source.innerHTML = quoteObj['source'];
 
-  if(randomQuote['citation']) {
-    source.innerHTML += "<span class='citation'>" + randomQuote['citation'] + "</span>";
+  if(quoteObj['citation']) {
+    source.innerHTML += "<span class='citation'>" + quoteObj['citation'] + "</span>";
   } 
 
-  if(randomQuote['year']) {
-    source.innerHTML += "<span class='year'>" + randomQuote['year'] + "</span>";
+  if(quoteObj['year']) {
+    source.innerHTML += "<span class='year'>" + quoteObj['year'] + "</span>";
   } 
 
 }
